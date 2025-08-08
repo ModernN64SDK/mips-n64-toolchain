@@ -179,13 +179,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Download Linux-x86_64 artifact
-        id: download-linux-x86_64-artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: gcc-toolchain-mips-n64-Linux-x86_64
-          path: ${{ runner.temp }}/gcc-toolchain-mips-n64-Linux-x86_64
-
       - name: Generate Changelog
         run: |
           CHANGELOG_TEXT="Latest GCC toolchain for the N64</br>"
