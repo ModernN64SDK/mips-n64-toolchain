@@ -70,17 +70,20 @@ download () {
 # Configure GCC arguments for non-macOS platforms
 GCC_CONFIGURE_ARGS+=("--with-system-zlib")
 
+cp gas-vr4300.patch $BUILD_PATH
+cp gcc-vr4300.patch $BUILD_PATH
+
 # Dependency downloads and unpack
 test -f "$DOWNLOAD_PATH/binutils-$BINUTILS_V.tar.gz" || download "https://ftp.gnu.org/gnu/binutils/binutils-$BINUTILS_V.tar.gz"
 test -d "$BUILD_PATH/binutils-$BINUTILS_V"           || tar -xzf "$DOWNLOAD_PATH/binutils-$BINUTILS_V.tar.gz" -C "$BUILD_PATH"
 pushd "$BUILD_PATH/binutils-$BINUTILS_V" 
-patch -p1 < ../../gas-vr4300.patch
+patch -p1 < $BUILD_PATH/gas-vr4300.patch
 popd
 
 test -f "$DOWNLOAD_PATH/gcc-$GCC_V.tar.gz"           || download "https://ftp.gnu.org/gnu/gcc/gcc-$GCC_V/gcc-$GCC_V.tar.gz"
 test -d "$BUILD_PATH/gcc-$GCC_V"                     || tar -xzf "$DOWNLOAD_PATH/gcc-$GCC_V.tar.gz" -C "$BUILD_PATH"
 pushd "$BUILD_PATH/gcc-$GCC_V"
-patch -p1 < ../../gcc-vr4300.patch
+patch -p1 < $BUILD_PATH/gcc-vr4300.patch
 popd
 
 test -f "$DOWNLOAD_PATH/newlib-$NEWLIB_V.tar.gz"     || download "https://sourceware.org/pub/newlib/newlib-$NEWLIB_V.tar.gz"
