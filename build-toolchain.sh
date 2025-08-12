@@ -59,7 +59,8 @@ command_exists () {
 
 # Download the file URL using wget or curl (depending on which is installed)
 download () {
-    if   command_exists wget ; then (cd "$DOWNLOAD_PATH" && wget -c  "$1")
+    if   command_exists aria2c ; then (cd "$DOWNLOAD_PATH" && aria2c -c -s 16 -x 16 "$1")
+    elif command_exists wget ; then (cd "$DOWNLOAD_PATH" && wget -c  "$1")
     elif command_exists curl ; then (cd "$DOWNLOAD_PATH" && curl -LO "$1")
     else
         echo "Install wget or curl to download toolchain sources" 1>&2
@@ -74,13 +75,13 @@ cp gas-vr4300.patch $BUILD_PATH
 cp gcc-vr4300.patch $BUILD_PATH
 
 # Dependency downloads and unpack
-test -f "$DOWNLOAD_PATH/binutils-$BINUTILS_V.tar.gz" || download "https://ftp.gnu.org/gnu/binutils/binutils-$BINUTILS_V.tar.gz"
+test -f "$DOWNLOAD_PATH/binutils-$BINUTILS_V.tar.gz" || download "https://ftpmirror.gnu.org/gnu/binutils/binutils-$BINUTILS_V.tar.gz"
 test -d "$BUILD_PATH/binutils-$BINUTILS_V"           || tar -xzf "$DOWNLOAD_PATH/binutils-$BINUTILS_V.tar.gz" -C "$BUILD_PATH"
 pushd "$BUILD_PATH/binutils-$BINUTILS_V" 
 patch -p1 < $BUILD_PATH/gas-vr4300.patch
 popd
 
-test -f "$DOWNLOAD_PATH/gcc-$GCC_V.tar.gz"           || download "https://ftp.gnu.org/gnu/gcc/gcc-$GCC_V/gcc-$GCC_V.tar.gz"
+test -f "$DOWNLOAD_PATH/gcc-$GCC_V.tar.gz"           || download "https://ftpmirror.gnu.org/gnu/gcc/gcc-$GCC_V/gcc-$GCC_V.tar.gz"
 test -d "$BUILD_PATH/gcc-$GCC_V"                     || tar -xzf "$DOWNLOAD_PATH/gcc-$GCC_V.tar.gz" -C "$BUILD_PATH"
 pushd "$BUILD_PATH/gcc-$GCC_V"
 patch -p1 < $BUILD_PATH/gcc-vr4300.patch
@@ -90,7 +91,7 @@ test -f "$DOWNLOAD_PATH/newlib-$NEWLIB_V.tar.gz"     || download "https://source
 test -d "$BUILD_PATH/newlib-$NEWLIB_V"               || tar -xzf "$DOWNLOAD_PATH/newlib-$NEWLIB_V.tar.gz" -C "$BUILD_PATH"
 
 if [ "$GMP_V" != "" ]; then
-    test -f "$DOWNLOAD_PATH/gmp-$GMP_V.tar.bz2"      || download "https://ftp.gnu.org/gnu/gmp/gmp-$GMP_V.tar.bz2"
+    test -f "$DOWNLOAD_PATH/gmp-$GMP_V.tar.bz2"      || download "https://ftpmirror.gnu.org/gnu/gmp/gmp-$GMP_V.tar.bz2"
     test -d "$BUILD_PATH/gmp-$GMP_V"                 || tar -xf "$DOWNLOAD_PATH/gmp-$GMP_V.tar.bz2" -C "$BUILD_PATH" # note: no .gz download file currently available
     pushd "$BUILD_PATH/gcc-$GCC_V"
     ln -sf ../"gmp-$GMP_V" "gmp"
@@ -98,7 +99,7 @@ if [ "$GMP_V" != "" ]; then
 fi
 
 if [ "$MPC_V" != "" ]; then
-    test -f "$DOWNLOAD_PATH/mpc-$MPC_V.tar.gz"       || download "https://ftp.gnu.org/gnu/mpc/mpc-$MPC_V.tar.gz"
+    test -f "$DOWNLOAD_PATH/mpc-$MPC_V.tar.gz"       || download "https://ftpmirror.gnu.org/gnu/mpc/mpc-$MPC_V.tar.gz"
     test -d "$BUILD_PATH/mpc-$MPC_V"                 || tar -xzf "$DOWNLOAD_PATH/mpc-$MPC_V.tar.gz" -C "$BUILD_PATH"
     pushd "$BUILD_PATH/gcc-$GCC_V"
     ln -sf ../"mpc-$MPC_V" "mpc"
@@ -106,7 +107,7 @@ if [ "$MPC_V" != "" ]; then
 fi
 
 if [ "$MPFR_V" != "" ]; then
-    test -f "$DOWNLOAD_PATH/mpfr-$MPFR_V.tar.gz"     || download "https://ftp.gnu.org/gnu/mpfr/mpfr-$MPFR_V.tar.gz"
+    test -f "$DOWNLOAD_PATH/mpfr-$MPFR_V.tar.gz"     || download "https://ftpmirror.gnu.org/gnu/mpfr/mpfr-$MPFR_V.tar.gz"
     test -d "$BUILD_PATH/mpfr-$MPFR_V"               || tar -xzf "$DOWNLOAD_PATH/mpfr-$MPFR_V.tar.gz" -C "$BUILD_PATH"
     pushd "$BUILD_PATH/gcc-$GCC_V"
     ln -sf ../"mpfr-$MPFR_V" "mpfr"

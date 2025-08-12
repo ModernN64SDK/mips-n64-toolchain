@@ -42,6 +42,7 @@ jobs:
     steps:
       - name: Install native system build dependencies
         run: |
+          sudo apt-get install aria2c
           sudo apt-get install libmpfr-dev
           sudo apt-get install texinfo
           sudo apt-get install libmpc-dev
@@ -213,7 +214,7 @@ jobs:
           prerelease: false
           body_path: CHANGELOG
           generate_release_notes: false
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.SECRETTOKENLOL }}
           name: 'V${{ needs.build-toolchain.outputs.gcc-version }}-${{ github.run_id }}'
           tag_name: "toolchain-continuous-prerelease"
           files: |
