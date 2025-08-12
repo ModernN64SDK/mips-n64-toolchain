@@ -140,6 +140,7 @@ jobs:
           echo Generating rpm package
           fpm \
             -t rpm \
+            --verbose
             -s dir \
             -p $Package_Name-$Package_Rpm_Architecture.rpm \
             --name $Package_Name \
