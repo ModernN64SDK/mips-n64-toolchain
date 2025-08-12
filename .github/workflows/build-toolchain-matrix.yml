@@ -120,6 +120,7 @@ jobs:
           echo Generating debian package
           # TODO: a warning is generated when adding files to `\etc`. The current workaround is: --deb-no-default-config-files
           fpm \
+            --verbose \
             -t deb \
             -s dir \
             -p $Package_Name-$Package_Deb_Architecture.deb \
@@ -139,8 +140,8 @@ jobs:
 
           echo Generating rpm package
           fpm \
+            --verbose \
             -t rpm \
-            --verbose
             -s dir \
             -p $Package_Name-$Package_Rpm_Architecture.rpm \
             --name $Package_Name \
