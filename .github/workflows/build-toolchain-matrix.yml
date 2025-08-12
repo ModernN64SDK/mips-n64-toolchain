@@ -42,7 +42,7 @@ jobs:
     steps:
       - name: Install native system build dependencies
         run: |
-          sudo apt-get install aria2c
+          sudo apt-get install aria2
           sudo apt-get install libmpfr-dev
           sudo apt-get install texinfo
           sudo apt-get install libmpc-dev
