@@ -164,6 +164,8 @@ jobs:
           Package_Rpm_Architecture: ${{ matrix.rpm-architecture }}
           Package_License: GPL
           Package_Description: MIPS GCC toolchain for the N64
+          Package_Url: https://github.com/ModernN64SDK/mips-n64-toolchain
+          Package_Maintainer: CrashOveride
 
       - name: Publish Linux-x86_64 Build Artifacts
         if: ${{ matrix.target-platform == 'Linux-x86_64' }}
