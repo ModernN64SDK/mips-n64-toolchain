@@ -112,7 +112,7 @@ jobs:
         if: ${{ matrix.target-platform == 'Linux-x86_64' || matrix.target-platform == 'Linux-aarch64' }}
         run: |
           echo Generate environment var file
-          echo 'export U64_INST=${{ env.Package_Installation_Directory }}' > "$Package_Name-env.sh"
+          echo 'export U64_INST=${{ env.Package_Installation_Directory }}\nexport N64_LIBGCCDIR="/opt/crashsdk/lib/gcc/mips64-elf/${{ steps.gcc-version-generator.outputs.GCC_VERSION }}"' \> "$Package_Name-env.sh"
           chmod 755 "$Package_Name-env.sh"
 
           # TODO: there is currently a dependency on makefile. but it is not added.
