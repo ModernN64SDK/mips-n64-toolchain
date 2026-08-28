@@ -6,16 +6,20 @@ name: Build-Native
 # This workflow will build the mips-n64 GCC toolchain to keep it up-to-date.
 on:
   # This action will take about 40-70 minutes to run!
-  # It is designed to only fire if the GCC toolchain build file changes.
+  # It is designed to only fire if the GCC toolchain build file, or the patches change.
   workflow_dispatch: {}
   push:
     paths:
       - '.github/workflows/build-toolchain-matrix.yml'
       - 'build-toolchain.sh'
+      - 'gas-vr4300.patch'
+      - 'gcc-vr4300.patch'
   pull_request:
     paths:
       - '.github/workflows/build-toolchain-matrix.yml'
       - 'build-toolchain.sh'
+      - 'gas-vr4300.patch'
+      - 'gcc-vr4300.patch'
 
 jobs:
   Build-Toolchain:
