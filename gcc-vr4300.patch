@@ -130,6 +130,7 @@ index 02562d3b644..28687325a88 100644
  
  /* Likewise mtc1 and mfc1.  */
  #define ISA_HAS_XFER_DELAY	(mips_isa <= MIPS_ISA_MIPS3	\
+				 && !TARGET_ALLEGREX		\
 +				 && !TARGET_MIPS4300		\
  				 && !TARGET_MIPS5900		\
  				 && !TARGET_LOONGSON_2EF)
