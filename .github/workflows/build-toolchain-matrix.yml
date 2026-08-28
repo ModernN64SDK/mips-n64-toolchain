@@ -72,7 +72,7 @@ jobs:
         continue-on-error: true
 
       - name: Checkout Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7.0.1
         with:
           fetch-depth: 1 # we only require the last check-in, unless we want to create a changelog.
 
