@@ -229,4 +229,3 @@ jobs:
           files: |
             ${{ runner.temp }}/**/*.deb
             ${{ runner.temp }}/**/*.rpm
-            ${{ runner.temp }}/*.zip
